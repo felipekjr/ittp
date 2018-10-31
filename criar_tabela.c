@@ -26,6 +26,6 @@ int main(int argc, char const *argv[])
 	else{
 		printf("RODOU!\n");
 	}
-  fclose(ptr_arq);
+  	fclose(ptr_arq);
 	return 0;
 }
