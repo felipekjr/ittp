@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 	printf("Digite o nome da sua tabela: ");
 	nome = (char *) malloc (20*sizeof(char));
 	fgets(nome, 20, stdin);
-  strcat(nome, ".txt");
+  	strcat(nome, ".txt");
 
   //criando o arquivo com o nome da tabela
 	ptr_arq = fopen(nome, "w+t");
