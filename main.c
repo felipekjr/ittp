@@ -26,10 +26,11 @@ int main(int argc, char const *argv[])
 }
 
 void v_criarTabela(){    
-    char * nome = NULL; //Nome da tabela-arquivo.txt
-    //nomeando o arquivo de texto
+    	char * nome = NULL; //Nome da tabela-arquivo.txt
+    	
+	//nomeando o arquivo de texto
 	printf("Digite o nome da sua tabela: ");
-    getchar();
+    	getchar();
 	nome = (char *) malloc (20*sizeof(char));
 	fgets(nome, 20, stdin);
   	strcat(nome, ".txt");
