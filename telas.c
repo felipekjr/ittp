@@ -27,71 +27,75 @@ void v_criarTabela(){
   strcat(nome, ".txt");
   if(criarTabela(nome)<0){
    printf("Falha ao criar arquivo!\n");
- }else{
-   if(definirAtributos()){
+  }else{
+    if(definirAtributos()){
 
-   }
- }
+    }
+  }
 }
 
 int definirAtributos(){
   char nome[20];
-  int count = 0;
-  Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
-  if (ptr_att==NULL)
-  {
-   printf("Erro de memória!\n");
-   return (-3);
- }
- else{
-   int ctr;
-   do{
-    	//tela de tipos
-     printf("Digite o tipo da coluna: \n\n1-CHAR\n2-INT\n3-FLOAT\n4-DOUBLE\n5-STRING\n0-FIM\n");
-     scanf("%d", &ctr);
-     printf("Digite o nome da coluna (max 20 caracteres): \n");
-     fgets(nome, 20, stdin);
-     if (ctr!=0 && ctr<=5)
-     {
-      switch(ctr){
-       case 1:
-       *(ptr_att+count).nome=nome;
-       *(ptr_att+count).tipo=1;
-       *(ptr_att+count).tamanho=sizeof(char);
-       break;
-       case 2:
-       *(ptr_att+count).nome=nome;
-       *(ptr_att+count).tipo=2;
-       *(ptr_att+count).tamanho=sizeof(int);
-       break;
-       case 3:
-       *(ptr_att+count).nome=nome;
-       *(ptr_att+count).tipo=3;
-       *(ptr_att+count).tamanho=sizeof(float);
-       break;
-       case 4:
-       *(ptr_att+count).nome=nome;
-       *(ptr_att+count).tipo=4;
-       *(ptr_att+count).tamanho=sizeof(double);
-       break;
-       case 5:
-       *(ptr_att+count).nome=nome;
-       *(ptr_att+count).tipo=5;
-       printf("Digite o tamanho da string que desejas: \n");
-       scanf("%d", &ctr);
-       *(ptr_att+count).tamanho=sizeof(char)*ctr;
-       break; 
-       default:
-       printf("Numero invalido!\n");
-     }
-     count++;
-     ptr_att= (Atributo*) realloc (ptr_att,count*sizeof(Atributo));
-     
-   }
-
- } while(ctr != 0)
-}
-
+  int count = 0, qnt_atributos = 1, ctr;  
+  Atributo *ptr_att = (Atributo*) calloc(qnt_atributos,sizeof(Atributo));   
+  if(ptr_att==NULL){
+    printf("Erro de memória!\n");
+    return (-3);
+  }
+  else {
+    
+    printf("---------ATRIBUTOS----------\n");
+    do{
+    	//definindo as colunas da tabela
+      printf("%d", count);      
+      printf("Digite o tipo da coluna: \n1-CHAR | 2-INT | 3-FLOAT | 4-DOUBLE | 5-STRING | 0-FIM\n");      
+      scanf("%d", &ctr);
+      if(ctr!=0 && ctr<=5){ 
+        printf("Digite o nome da coluna (max 20 caracteres): \n");  
+        getchar();
+        fgets(nome, 20, stdin);
+        switch(ctr){          
+          case 1:            
+            (ptr_att+count)->nome=nome;
+            (ptr_att+count)->tipo=1;
+            (ptr_att+count)->tamanho=sizeof(char);
+            break;
+          case 2:
+            (ptr_att+count)->nome=nome;
+            (ptr_att+count)->tipo=2;
+            (ptr_att+count)->tamanho=sizeof(int);
+            break;
+          case 3:
+            (ptr_att+count)->nome=nome;
+            (ptr_att+count)->tipo=3;
+            (ptr_att+count)->tamanho=sizeof(float);
+            break;
+          case 4:
+            (ptr_att+count)->nome = nome;
+            (ptr_att+count)->tipo = 4;
+            (ptr_att+count)->tamanho=sizeof(double);
+            break;
+          case 5:
+            (ptr_att+count)->nome=nome;
+            (ptr_att+count)->tipo=5;
+            printf("Digite o tamanho da string que desejas: \n");
+            scanf("%d", &ctr);
+            (ptr_att+count)->tamanho=sizeof(char)*ctr;
+            break; 
+          default:
+            printf("Numero invalido!\n");
+        }
+        count++;
+        qnt_atributos++;        
+        ptr_att=(Atributo*) realloc (ptr_att,qnt_atributos*sizeof(Atributo));     
+      }
+    }while(ctr != 0);   
+    //checando se os atributos foram armazenados
+    for(int i = 0; i < 2; i++){
+      printf("%s\n", ptr_att[i].nome);
+    }
+  }
+  free(ptr_att);
 }
 
 void v_listarTabelas(){}
