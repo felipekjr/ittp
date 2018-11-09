@@ -51,7 +51,7 @@ int definirAtributos(){
      scanf("%d", &ctr);
      printf("Digite o nome da coluna (max 20 caracteres): \n");
      fgets(nome, 20, stdin);
-     if (ctr!=0)
+     if (ctr!=0 && ctr<=5)
      {
       switch(ctr){
        case 1:
