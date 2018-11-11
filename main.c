@@ -10,11 +10,11 @@ int main(int argc, char const *argv[])
 	int op = 0;
 	do{
 
-		printf("Escolha as funcionalidades:\n   1-Criar uma tabela\n   2-Listar todas as tabelas\n   3-Criar uma nova linha na tabela\n   4-Listar todos os dados de uma tabela\n   5-Pesquisar um valor em uma tabela\n   6-Apagar valor de uma tabela\n   7-Apagar uma tabela\n");
-		scanf("%d", &op);
-		switch (op)
+	printf("Escolha as funcionalidades:\n   1-Criar uma tabela\n   2-Listar todas as tabelas\n   3-Criar uma nova linha na tabela\n   4-Listar todos os dados de uma tabela\n   5-Pesquisar um valor em uma tabela\n   6-Apagar valor de uma tabela\n   7-Apagar uma tabela\n");
+	scanf("%d", &op);
+	switch (op)
 		{
-			case 1:
+	    case 1:
             v_criarTabela(); //checkpoint 1
             break;
             case 2:
