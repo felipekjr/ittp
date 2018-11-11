@@ -7,21 +7,38 @@
 
 int main(int argc, char const *argv[])
 {
-    int op = 0;
-    do{
-        printf("1 - Criar uma tabela\n");
-        printf("2 - Listar todas as tabelas\n");
-        scanf("%d", &op);
-        switch(op){
-            case 1: v_criarTabela(); break;
-            case 2: v_listarTabelas(); break;
-            default: break;
+	int op = 0;
+	do{
+
+		printf("Escolha as funcionalidades:\n   1-Criar uma tabela\n   2-Listar todas as tabelas\n   3-Criar uma nova linha na tabela\n   4-Listar todos os dados de uma tabela\n   5-Pesquisar um valor em uma tabela\n   6-Apagar valor de uma tabela\n   7-Apagar uma tabela\n");
+		scanf("%d", &op);
+		switch (op)
+		{
+			case 1:
+            v_criarTabela(); //checkpoint 1
+            break;
+            case 2:
+            v_listarTabelas(); //checkpoint 1
+            break;
+            case 3:
+            //inserir_registros(); //checkpoint 2
+            break;
+            case 4:
+            //listar_dados(); //checkpoint 2
+            break;
+            case 5:
+            //pesquisar_na_tabela(); //checkpoint 3
+            break;
+            case 6:
+            //apagar_registro(); //checkpoint 4
+            break;
+            case 7:
+            //apagar_tabela(); //checkpoint 4
+            break;
+            default:
+            //printf("Valor inválido!");
+            break;
         }
     }while(op != 0);
-
-   
-
     return 0;
 }
-
-
