@@ -12,6 +12,6 @@ typedef struct atributo{
 }Atributo;
 
 int criarTabela(char *nome);
-int escreverAtributos(char *arquivo, Atributo *atributo);
+int escreverAtributos(char *nome, Atributo *atributo);
 
 #endif

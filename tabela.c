@@ -4,21 +4,22 @@
 #include "tabela.h"
 
 //cria uma tabela como um arquivo txt.
-int criarTabela(char *arquivo)
-{
+int criarTabela(char *nome){	
+	FILE *banco = fopen("banco.txt", "w+");		
 	FILE *ptr_arq; //Ponteiro do arquivo	
   	//criando o arquivo com o nome da tabela
-	ptr_arq = fopen(arquivo, "w+t");
-		if(ptr_arq==NULL){		
+	ptr_arq = fopen(strcat(nome, ".txt"), "w+t");
+	if(ptr_arq==NULL){		
 		return -1;
-		}	
+	}
   	fclose(ptr_arq);
+	fclose(banco);
 	return 0;
 }
 
 //escreve os atributos que a tabela possui (colunas)
-int escreverAtributos(char *arquivo, Atributo *atributo){
-	FILE *ptr_arq = fopen(arquivo, "w+");
+int escreverAtributos(char *nome, Atributo *atributo){
+	FILE *ptr_arq = fopen(strcat(nome, ".txt"), "w+");
 	if(ptr_arq==NULL){		
 		return -1;
 	}else{

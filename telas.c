@@ -8,12 +8,11 @@ int escolherPK(char *nome_tabela);
 
 //tela para criar a tabela
 void v_criarTabela(){    
-	char * nome_tabela = NULL; 
+	char *nome_tabela; 
   printf("Digite o nome da sua tabela: ");
   getchar();
   nome_tabela = (char *) malloc (20*sizeof(char));
-  fgets(nome_tabela, 20, stdin);
-  strcat(nome_tabela, ".txt");
+  fgets(nome_tabela, 20, stdin); 
   if(criarTabela(nome_tabela)<0){
    printf("Falha ao criar arquivo!\n");
   }else{
