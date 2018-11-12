@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "telas.h"
 #include "tabela.h"
-
 
 int main(int argc, char const *argv[])
 {
@@ -15,10 +13,10 @@ int main(int argc, char const *argv[])
 	switch (op)
 		{
 	    case 1:
-            v_criarTabela(); //checkpoint 1
+            criarTabela(); //checkpoint 1
             break;
             case 2:
-            v_listarTabelas(); //checkpoint 1
+            listarTabelas(); //checkpoint 1
             break;
             case 3:
             //inserir_registros(); //checkpoint 2

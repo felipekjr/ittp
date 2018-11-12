@@ -11,7 +11,16 @@ typedef struct atributo{
 	int tamanho;
 }Atributo;
 
-int criarTabela(char *nome);
+enum TIPOS{
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	STRING
+};
+
+void criarTabela();
+void listarTabelas();
 int escreverAtributos(char *nome, Atributo *atributo);
 
 #endif
