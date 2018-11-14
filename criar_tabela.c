@@ -10,7 +10,7 @@
   void criarTabela(){
       FILE *ptr_arq; //Ponteiro do arquivo
       char *nome_tabela;
-    nome_tabela = (char *) malloc (20*sizeof(char));
+      nome_tabela = (char *) malloc (20*sizeof(char));
       printf("Digite o nome da sua tabela: ");
       getchar();
       fgets(nome_tabela, 20, stdin);
@@ -60,8 +60,7 @@
           printf("Digite o nome da coluna (max 20 caracteres): \n");
           getchar();
           fgets(nome, 20, stdin);  
-          verificaColunas(tabela, nome);    
-          fprintf(stdout, "%s", nome); 
+          verificaColunas(tabela, nome);
           switch(option){          
             case 1:            
               (ptr_att)->nome=nome;
@@ -104,6 +103,23 @@
 
   int verificaColunas(FILE *tabela, char nome[20]){
       //verifica se já tem uma coluna com o mesmo nome
+      // fseek(tabela,0, SEEK_SET);        
+      // char nome_coluna[20];
+      // int count = 0;
+      // while(count < 3){
+      //   fscanf(tabela, "coluna : %s", &nome_coluna);       
+      //   fprintf(stdout, "NOME: %s\n", nome_coluna);
+      //   fseek(tabela,0, SEEK_CUR);  
+      //   count++;
+      // }      
+      // return 0;
+      fseek(tabela,0, SEEK_SET);  
+      char *search;    
+      char linha[256];      
+      while (fgets(linha, 256, tabela)) // buffer will contain also the newline!
+      {       
+        search = strstr(linha, nome);          
+      }      
   }
 
   //escreve os atributos que a tabela possui (colunas)
