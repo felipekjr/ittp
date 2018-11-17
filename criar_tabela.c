@@ -5,7 +5,9 @@
 
   int definirAtributos(FILE *arquivo);
   int escreverAtributos(char *nome, Atributo *atributo);
+  int contarLinhas(FILE* tabela);
   int verificaColunas(FILE *tabela, char nome[20]);
+
 
   void criarTabela(){
       FILE *ptr_arq; //Ponteiro do arquivo
@@ -35,7 +37,7 @@
 
 
   int definirAtributos(FILE *tabela){
-    char nome[20];
+    char *nome;
     int option, string_size;  
     Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
     if(ptr_att==NULL){
@@ -60,7 +62,7 @@
           printf("Digite o nome da coluna (max 20 caracteres): \n");
           getchar();
           fgets(nome, 20, stdin);  
-          verificaColunas(tabela, nome);
+          printf("%d",verificaColunas(tabela, nome));
           switch(option){          
             case 1:            
               (ptr_att)->nome=nome;
@@ -101,25 +103,53 @@
     return 0;
   }
 
-  int verificaColunas(FILE *tabela, char nome[20]){
-      //verifica se já tem uma coluna com o mesmo nome
-      // fseek(tabela,0, SEEK_SET);        
-      // char nome_coluna[20];
-      // int count = 0;
-      // while(count < 3){
-      //   fscanf(tabela, "coluna : %s", &nome_coluna);       
-      //   fprintf(stdout, "NOME: %s\n", nome_coluna);
-      //   fseek(tabela,0, SEEK_CUR);  
-      //   count++;
-      // }      
-      // return 0;
-      fseek(tabela,0, SEEK_SET);  
-      char *search;    
-      char linha[256];      
-      while (fgets(linha, 256, tabela)) // buffer will contain also the newline!
-      {       
-        search = strstr(linha, nome);          
-      }      
+  int verificaColunas(FILE *tabela, char *nome){
+      int count = 0, k = 0;        
+      char buffer[256];   
+      int qnt_colunas = contarColunas(tabela);        
+      char **linhas = (char**) calloc(qnt_colunas, sizeof(char*));
+      if(linhas == NULL){
+        printf("Erro1");
+        return -1;
+      }else{ 
+        fseek(tabela,0, SEEK_SET);        
+        while (fgets(buffer, 256, tabela)) // buffer will contain also the newline!
+        {                         
+          linhas[count] = (char*) calloc(20, sizeof(char));
+          if(linhas[count] == NULL){
+            printf("Erro");
+            return -1;
+          }else{            
+            strcpy(linhas[count],buffer);
+          }
+          count++;
+        }
+      }   
+      for(int j = 0; j<count; j++){        
+        // fprintf(stdout,"%s",strstr(linhas[j], strcpy("",nome)));
+        // if(strstr(linhas[j], nome) != NULL){
+        //   return 1;
+        // }
+      }
+      //limpando ponteiro      
+      for(int j = 0; j<count; j++){
+        free(linhas[j]);
+      }    
+      free(linhas);  
+      return 0;
+          
   }
 
-  //escreve os atributos que a tabela possui (colunas)
+  int contarColunas(FILE* tabela){
+    int colunas = 0, ch = 0;
+    while(!feof(tabela))
+      {
+        ch = fgetc(tabela);
+        if(ch == 'c')
+        {
+          colunas++;
+        }
+      }
+      return colunas;
+  }
+
