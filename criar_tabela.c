@@ -1,4 +1,4 @@
-  #include <stdio.h>
+#include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
   #include "tabela.h"
@@ -38,6 +38,7 @@
 
   int definirAtributos(FILE *tabela){
     char *nome;
+    nome = (char*) calloc (20, sizeof(char));
     int option, string_size;  
     Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
     if(ptr_att==NULL){
@@ -101,6 +102,7 @@
       }while(option != 0);       
     }
     free(ptr_att);
+    free(nome);
     return 0;
   }
 
@@ -154,4 +156,3 @@
       }
       return colunas;
   }
-
