@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
             //inserir_registros(); //checkpoint 2
             break;
             case 4:
-            //listar_dados(); //checkpoint 2
+            listarDados(); //checkpoint 2
             break;
             case 5:
             //pesquisar_na_tabela(); //checkpoint 3

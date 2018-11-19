@@ -4,8 +4,7 @@
   #include "tabela.h"
 
   int definirAtributos(FILE *arquivo);
-  int escreverAtributos(char *nome, Atributo *atributo);
-  int contarColunas(FILE* tabela);
+  int escreverAtributos(char *nome, Atributo *atributo);  
   int verificaColunas(FILE *tabela, char *nome);
 
 
@@ -134,17 +133,12 @@
           return 1;
           //nome já existe existe
         }
-      }
-      //limpando ponteiro      
-      for(int j = 0; j<count; j++){
-        free(linhas[j]);
-      }    
-      free(linhas);  
+      }      
       return 0;
           
   }
 
-  int contarColunas(FILE* tabela){
+int contarColunas(FILE* tabela){
     int colunas = 0, ch = 0;
     while(!feof(tabela))
       {
