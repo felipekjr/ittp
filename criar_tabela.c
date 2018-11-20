@@ -6,7 +6,7 @@
 int definirAtributos(FILE *arquivo);
 int escreverAtributos(char *nome, Atributo *atributo);  
 int verificaColunas(FILE *tabela, char *nome);
-
+int contarColunas(FILE* tabela)g;
 
 void criarTabela(){
       FILE *ptr_arq; //Ponteiro do arquivo
