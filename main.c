@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
             listarTabelas(); //checkpoint 1
             break;
             case 3:
-            //inserir_registros(); //checkpoint 2
+            inserirRegistros(); //checkpoint 2
             break;
             case 4:
             listarDados(); //checkpoint 2

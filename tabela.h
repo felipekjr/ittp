@@ -22,5 +22,5 @@ void criarTabela();
 void listarTabelas();
 void listarDados();
 int escreverAtributos(char *nome, Atributo *atributo);
-
+void inserirRegistros();
 #endif
