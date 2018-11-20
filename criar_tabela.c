@@ -1,12 +1,12 @@
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include "tabela.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tabela.h"
 
 int definirAtributos(FILE *arquivo);
 int escreverAtributos(char *nome, Atributo *atributo);  
 int verificaColunas(FILE *tabela, char *nome);
-int contarColunas(FILE* tabela)g;
+int contarColunas(FILE* tabela);
 
 void criarTabela(){
       FILE *ptr_arq; //Ponteiro do arquivo
@@ -55,7 +55,7 @@ void criarTabela(){
 
     int definirAtributos(FILE *tabela){
       char *nome;
-      nome = (char*) calloc (20, sizeof(char));
+      nome = (char*) calloc (21, sizeof(char));
       int option, string_size;  
       Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
       if(ptr_att==NULL){
@@ -66,7 +66,10 @@ void criarTabela(){
         printf("---------COLUNAS DA TABELA----------\n");
       //CHAVE PRIMARIA
         printf("Digite o nome da chave primária: ");
-        fscanf(stdin, "%s", nome);            
+        fscanf(stdin, "%s", nome); 
+        for (int i = strlen(nome); i<20;i++){
+          strcat(nome," ");
+        }
         fprintf(tabela, "[%s, %d, %d]\n", nome, 2, 4);
             //FIM DO PROCESSO DA CHAVE PRIMARIA            
             //Lembrete, sempre a chave primária será a primeira coluna, por definição nossa
@@ -77,6 +80,9 @@ void criarTabela(){
           if(option!=0){ 
             printf("Digite o nome da coluna (max 20 caracteres): \n");
             fscanf(stdin, "%s", nome);   
+            for (int i = strlen(nome); i<20;i++){
+                strcat(nome," ");
+        }
             if(verificaColunas(tabela, nome) == 0){
             //coluna ainda n existe
               switch(option){          
