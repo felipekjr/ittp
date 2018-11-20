@@ -35,7 +35,6 @@ void criarTabela(){
       		printf("Digite uma tabela intedita, senao sobreescreve!\n");
       	}
       } while (controle==0);
-      fclose(ptr_arq);
       //criando o arquivo com o nome da tabela
       ptr_arq = fopen(nome_tabela, "w+");
       if(ptr_arq==NULL){    
