@@ -1,8 +1,8 @@
 #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include "tabela.h"
-  #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tabela.h"
+#include <ctype.h>
 
   int contarColuna(FILE* tabela);
 
@@ -35,12 +35,13 @@
     colunas = contarColuna(tabela);
     //colocando para ler no inicio do documento
     fseek(tabela,0,SEEK_SET);
+    printf("=Digite os valores da tabela %s=\n", "a.txt");
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
     {    
         if(strstr(buffer, "{") == NULL){
           // É UMA COLUNA, tratar o dado
           nome_atributo = strtok(strtok(buffer,","),"[");
-          printf("Digite o valor para a coluna %s: ", nome_atributo);
+          printf("%s: ", nome_atributo);
           scanf("%s", valor);
           fprintf(respostas,"%s\n", valor);
           count++;
