@@ -4,7 +4,7 @@
 #include "tabela.h"
 #include <ctype.h>
 
-  int contarColuna(FILE* tabela);
+ 
 
   void inserirRegistros(){
     char *valor = (char*) malloc (20*sizeof(char));
@@ -32,7 +32,7 @@
     }
     }while(tabela == NULL);
     //le cada linha do arquivo        
-    colunas = contarColuna(tabela);
+    colunas = contarColunas(tabela);
     //colocando para ler no inicio do documento
     fseek(tabela,0,SEEK_SET);
     printf("=Digite os valores da tabela %s=\n", "a.txt");
@@ -61,16 +61,4 @@
     fclose(tabela);
     free(nome_tabela);
     }
-  }
-  int contarColuna(FILE* tabela){
-    int coluna = 0, ch = 0;
-    while(!feof(tabela))
-      {
-        ch = fgetc(tabela);
-        if(ch == '[')
-        {
-          coluna++;
-        }
-      }
-      return coluna;
   }
