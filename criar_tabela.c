@@ -38,7 +38,7 @@
   int definirAtributos(FILE *tabela){
     char *nome;
     nome = (char*) calloc (20, sizeof(char));
-    int option, string_size;  
+    int coluna_counter=1,option, string_size;  
     Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
     if(ptr_att==NULL){
       printf("Erro de memória!\n");
@@ -47,17 +47,18 @@
     else {    
       printf("---------COLUNAS DA TABELA----------\n");
       //CHAVE PRIMARIA
-            printf("Digite o nome da chave primária: ");
+            printf("(%d) Digite o nome da chave primária: ", coluna_counter);
             fscanf(stdin, "%s", nome);            
             fprintf(tabela, "[%s, %d, %d]\n", nome, 2, 4);
+            coluna_counter++;
             //FIM DO PROCESSO DA CHAVE PRIMARIA            
             //Lembrete, sempre a chave primária será a primeira coluna, por definição nossa
       do{
         //definindo as colunas da tabela  
-        printf("Digite o tipo da coluna: \n1-CHAR | 2-INT | 3-FLOAT | 4-DOUBLE | 5-STRING | 0-FIM\n");      
+        printf("(%d) Digite o tipo da coluna : \n1-CHAR | 2-INT | 3-FLOAT | 4-DOUBLE | 5-STRING | 0-FIM\n", coluna_counter);      
         scanf("%d", &option);
         if(option!=0){ 
-          printf("Digite o nome da coluna (max 20 caracteres): \n");
+          printf("(%d) Digite o nome da coluna (max 20 caracteres): \n", coluna_counter);
           fscanf(stdin, "%s", nome);   
           if(verificaColunas(tabela, nome) == 0){
             //coluna ainda n existe
@@ -94,6 +95,7 @@
             } 
             int length= strlen(ptr_att->nome);
             fprintf(tabela, "[%s, %d, %d]\n",ptr_att->nome, ptr_att->tipo, ptr_att->tamanho); 
+            coluna_counter++;
           }else{
             printf("Já existe uma coluna com esse nome!\n");
           }      
