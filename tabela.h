@@ -6,7 +6,7 @@ typedef struct tabela{
 }Tabela;
 typedef struct atributo{
 	char *nome;
-	int tipo;
+	char *tipo;	
 	int tamanho;
 }Atributo;
 
@@ -17,7 +17,7 @@ enum TIPOS{
 	DOUBLE,
 	STRING
 };
-int contarColunas(FILE* tabela);
+int contarColunas(FILE* tabela, char separador);
 void criarTabela();
 void listarTabelas();
 void listarDados();

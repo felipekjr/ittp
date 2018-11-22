@@ -32,7 +32,7 @@
     }
     }while(tabela == NULL);
     //le cada linha do arquivo        
-    colunas = contarColunas(tabela);
+    colunas = contarColunas(tabela, '[');
     //colocando para ler no inicio do documento
     fseek(tabela,0,SEEK_SET);
     printf("=Digite os valores da tabela %s=\n", "a.txt");
