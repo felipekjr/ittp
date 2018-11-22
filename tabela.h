@@ -17,10 +17,11 @@ enum TIPOS{
 	DOUBLE,
 	STRING
 };
-int contarColunas(FILE* tabela, char separador);
+
 void criarTabela();
 void listarTabelas();
 void listarDados();
 int escreverAtributos(char *nome, Atributo *atributo);
+int contarColunas(FILE* tabela, char separador);
 void inserirRegistros();
 #endif

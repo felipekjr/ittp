@@ -6,7 +6,7 @@
   int definirAtributos(FILE *arquivo);
   int escreverAtributos(char *nome, Atributo *atributo);  
   int verificaColunas(FILE *tabela, char *nome);
-  int contarColunas(FILE* tabela, char separador);
+
 
   void criarTabela(){
       FILE *ptr_arq; //Ponteiro do arquivo
@@ -32,8 +32,6 @@
     free(nome_tabela);
     fclose(ptr_arq);
   }
-
-
 
   int definirAtributos(FILE *tabela){
     char *nome;
@@ -152,4 +150,4 @@ int contarColunas(FILE* tabela, char separador){
         }
       }
       return colunas;
-  }
+}
