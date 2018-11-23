@@ -14,7 +14,7 @@ void listarTabelas(){
     while ((pp = readdir (p))!=NULL) {
       int length = strlen(pp->d_name);
       if (strncmp(pp->d_name + length - 4, ".txt", 4) == 0) {   
-        if(strcmp(pp->d_name, "respostas.txt")==0){
+        if(strcmp(pp->d_name, "respostas.txt")==0 || strcmp(pp->d_name, "pk.txt")==0){
           }
           else{
           printf("%.*s\n",length - 4, pp->d_name);
