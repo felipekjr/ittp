@@ -1,4 +1,0 @@
-[id (int,4)]
-[tamanho (char,1)]
-[idade (int,4)]
-[nome (string,10)]
