@@ -1,5 +1,6 @@
 #ifndef _tabela_h
 #define _tabela_h
+
 typedef struct tabela{
 	int id;
 	char *nome;
@@ -23,6 +24,7 @@ void listarDados();
 void inserirRegistros();
 void pesquisarValor();
 
+//funções reaproveitaveis
 int escreverAtributos(char *nome, Atributo *atributo);
 int contarColunas(FILE* tabela, char separador);
 int verificaColunas(FILE *tabela, char *nome);

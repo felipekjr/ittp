@@ -33,25 +33,26 @@ void inserirRegistros(){
     colunas = contarColunas(tabela, '[');
     //colocando para ler no inicio do documento
     tabela = fopen (nome_tabela, "a+");
-    printf("Processo pk concluido com sucesso!\n",jogarPkArquivo(tabela, valor,pk));
+    jogarPkArquivo(tabela, valor,pk);
+    printf("Processo pk concluido com sucesso!\n");
     printf("=Digite os valores da tabela %s=\n", nome_tabela);
     fseek(tabela,0,SEEK_SET);
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
     {    
       if(strstr(buffer, "{") == NULL){
           // É UMA COLUNA, tratar o dado
-        nome_atributo = strtok(strtok(buffer,","),"[");
+        nome_atributo = strtok(strtok(buffer,"]"),"[");
         if(count == 0){
           do{
-          printf("%s): ", nome_atributo);  
+          printf("%s: ", nome_atributo);  
           scanf("%s", valor);
           if(verificarPk(pk, valor)==-1){
-            printf("ERRO! valor da Pk já existe\n");
+            printf("ERRO! Valor da PK invalido\n");
           }
           }while(verificarPk(pk, valor)==-1);
           fprintf(respostas,"%s\n", valor);
         }else{
-          printf("%s): ", nome_atributo);  
+          printf("%s: ", nome_atributo);  
           scanf("%s", valor);
           fprintf(respostas,"%s\n", valor);
         } 
@@ -106,11 +107,14 @@ int contarLinhas(FILE* tabela){
       return colunas;
   }
 int verificarPk(FILE *pk, char *nome){
-  char *aux = (char*) malloc (20*1);
-  fseek(pk, 0, SEEK_SET);
+  char *aux = (char*) malloc (20*1);  
+  fseek(pk, 0, SEEK_SET);  
+  char * pEnd;
+  long int conversao; 
   while(!feof(pk)){
-    fscanf(pk, "%s", aux);
-    if(strcmp(aux,nome)==0){
+    fscanf(pk, "%s", aux); 
+    conversao = strtol (nome,&pEnd,20); 
+    if(strcmp(aux,nome)==0 || conversao<0 || !isdigit(*nome)){
       free(aux);
       return -1;
     }

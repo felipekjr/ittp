@@ -52,7 +52,7 @@ char* listarColunas(FILE *tabela){
             // É UMA TUPLA            
             coluna = strtok(strtok(buffer,"["),"]");            
             strcat(aux, coluna);
-            fprintf(stdout, "%s ", coluna);                  
+            fprintf(stdout, "%s | ", coluna);                  
             }
         }
         printf("\n");

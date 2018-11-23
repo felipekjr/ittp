@@ -37,20 +37,21 @@ void pesquisarValor(){
             }
         }while(verificaColunas(tabela, coluna_escolhida)!=1);
         //o valor da coluna digitado está correto
-        printf("Digite o valor a ser pesquisado: ");
+        printf("Digite o valor a ser pesquisado: ");        
         fscanf(stdin, "%s", valor);
-        do{
+        getchar();
+        while(option != 0){
             printf("ESCOLHA UMA DAS OPÇÕES:\n");
             printf("0 - SAIR\n");
             printf("1 - Valores maiores que o informado\n");
             printf("2 - Valores maiores ou iguais que o informado\n");
-            printf("3 - Valores iguais que o informado\n");
-            scanf("%d", &option);
+            printf("3 - Valores iguais que o informado\n");           
+            scanf("%d", &option);            
             switch(option){
                 case 1: pesquisarMaiores(tabela, valor); break;
                 default: break;
-            }
-        }while(option != 0);
+            }  
+        }      
 
     }
 }
