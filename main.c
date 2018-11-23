@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
             listarDados(); //checkpoint 2
             break;
             case 5:
-            //pesquisar_na_tabela(); //checkpoint 3
+            pesquisarValor(); //checkpoint 3
             break;
             case 6:
             //apagar_registro(); //checkpoint 4

@@ -5,7 +5,7 @@
 
   int definirAtributos(FILE *arquivo);
   int escreverAtributos(char *nome, Atributo *atributo);  
-  int verificaColunas(FILE *tabela, char *nome);
+
 
 
   void criarTabela(){
@@ -47,7 +47,7 @@
       //CHAVE PRIMARIA
             printf("(%d) Digite o nome da chave primária: ", coluna_counter);
             fscanf(stdin, "%s", nome);            
-            fprintf(tabela, "[%s (%s,%d)]\n", nome, "int", 4);
+            fprintf(tabela, "[%s (%s)]\n", nome, "int");
             coluna_counter++;
             //FIM DO PROCESSO DA CHAVE PRIMARIA            
             //Lembrete, sempre a chave primária será a primeira coluna, por definição nossa
@@ -63,37 +63,32 @@
             switch(option){          
               case 1:            
                 (ptr_att)->nome=nome;
-                (ptr_att)->tipo= "char";
-                (ptr_att)->tamanho=sizeof(char);
+                (ptr_att)->tipo= "char";                
                 break;
               case 2:
                 (ptr_att)->nome=nome;
-                (ptr_att)->tipo="int";
-                (ptr_att)->tamanho=sizeof(int);
+                (ptr_att)->tipo="int";                
                 break;
               case 3:
                 (ptr_att)->nome=nome;
-                (ptr_att)->tipo="float";
-                (ptr_att)->tamanho=sizeof(float);
+                (ptr_att)->tipo="float";                
                 break;
               case 4:
                 (ptr_att)->nome = nome;
-                (ptr_att)->tipo = "double";
-                (ptr_att)->tamanho=sizeof(double);
+                (ptr_att)->tipo = "double";                
                 break;
               case 5:
                 (ptr_att)->nome=nome;
                 (ptr_att)->tipo="string";
                 printf("Digite o tamanho da string que desejas: ");
                 getchar();
-                scanf("%d", &string_size);
-                (ptr_att)->tamanho=sizeof(char)*string_size;
+                scanf("%d", &string_size);                
                 break; 
               default:
                 printf("Digite um valor válido!\n");            
             } 
             int length= strlen(ptr_att->nome);
-            fprintf(tabela, "[%s (%s,%d)]\n",ptr_att->nome, ptr_att->tipo, ptr_att->tamanho); 
+            fprintf(tabela, "[%s (%s)]\n",ptr_att->nome, ptr_att->tipo); 
             coluna_counter++;
           }else{
             printf("Já existe uma coluna com esse nome!\n");
@@ -112,7 +107,7 @@
       int qnt_colunas = contarColunas(tabela, '[');        
       char **linhas = (char**) calloc(qnt_colunas, sizeof(char*));
       if(linhas == NULL){
-        printf("Erro1");
+        fprintf(stderr, "Erro1");
         return -1;
       }else{ 
         fseek(tabela,0, SEEK_SET);        
@@ -120,7 +115,7 @@
         {                         
           linhas[count] = (char*) calloc(20, sizeof(char));
           if(linhas[count] == NULL){
-            printf("Erro");
+            fprintf(stderr, "Erro");
             return -1;
           }else{            
             //armazena cada linha de colunas da tabela em um vetor
@@ -135,8 +130,7 @@
           //nome já existe existe
         }
       }      
-      return 0;
-          
+      return 0;          
   }
 
 int contarColunas(FILE* tabela, char separador){

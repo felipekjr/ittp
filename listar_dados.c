@@ -4,7 +4,6 @@
 #include "tabela.h"
 #include <ctype.h>
 
-void listarColunas(FILE *tabela);
 void listarDados(){
     char *nome_tabela;  
     char *linha;  
@@ -42,16 +41,20 @@ void listarDados(){
     fclose(tabela);    
 }
 
-void listarColunas(FILE *tabela){
+char* listarColunas(FILE *tabela){
     char *coluna;
-    char buffer[256];
+    char *aux = (char*) calloc(100, sizeof(char));
+    char buffer[256];    
+    fseek(tabela ,0, SEEK_CUR); 
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
         {    
             if(strstr(buffer, "{") == NULL){
-            // É UMA TUPLA
-            coluna = strtok(strtok(buffer,"["),"]");
-            printf("%s   ", coluna);         
+            // É UMA TUPLA            
+            coluna = strtok(strtok(buffer,"["),"]");            
+            strcat(aux, coluna);
+            fprintf(stdout, "%s ", coluna);                  
             }
         }
-        printf("\n"); 
+        printf("\n");
+        return aux; 
 }
