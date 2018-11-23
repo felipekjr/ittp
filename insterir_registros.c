@@ -4,8 +4,9 @@
 #include "tabela.h"
 #include <ctype.h>
 
-int verificaPK(FILE *tabela, char *nome);
+int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk);
 int contarLinhas(FILE* tabela);
+int verificarPk(FILE *pk, char *nome);
 
 void inserirRegistros(){
   char *valor = (char*) malloc (20*sizeof(char));
@@ -15,6 +16,7 @@ void inserirRegistros(){
   char buffer[256];   
   FILE *tabela;
   FILE *respostas= fopen("respostas.txt", "w+");
+  FILE *pk= fopen("pk.txt", "w+");
   if(respostas==NULL){
     printf("Erro");
   }else{ 
@@ -29,29 +31,30 @@ void inserirRegistros(){
     }while(tabela == NULL);
     //le cada linha do arquivo        
     colunas = contarColunas(tabela, '[');
-    printf("%i", colunas);
     //colocando para ler no inicio do documento
     tabela = fopen (nome_tabela, "a+");
-    fseek(tabela,0,SEEK_SET);
+    printf("Processo pk concluido com sucesso!\n",jogarPkArquivo(tabela, valor,pk));
     printf("=Digite os valores da tabela %s=\n", nome_tabela);
+    fseek(tabela,0,SEEK_SET);
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
     {    
       if(strstr(buffer, "{") == NULL){
           // É UMA COLUNA, tratar o dado
         nome_atributo = strtok(strtok(buffer,","),"[");
-        if(count==0){
+        if(count == 0){
           do{
-            printf("%s): ", nome_atributo);  
-            scanf("%s", valor);
-            if(verificaPK(tabela, valor)==-1){
-            printf("Digite uma chave primaria valida\n");
-            }
-          }while(verificaPK(tabela, valor)!=0);
+          printf("%s): ", nome_atributo);  
+          scanf("%s", valor);
+          if(verificarPk(pk, valor)==-1){
+            printf("ERRO! valor da Pk já existe\n");
+          }
+          }while(verificarPk(pk, valor)==-1);
+          fprintf(respostas,"%s\n", valor);
         }else{
           printf("%s): ", nome_atributo);  
           scanf("%s", valor);
           fprintf(respostas,"%s\n", valor);
-        }
+        } 
         count++;
       }
     }   
@@ -66,6 +69,7 @@ void inserirRegistros(){
         fprintf(tabela,"%s, ", valor);
       }
     }
+    fclose(pk);
     fclose(respostas);
     fclose(tabela);
     free(valor);
@@ -73,24 +77,21 @@ void inserirRegistros(){
   }
 }
 
-int verificaPK(FILE *tabela, char *nome){   
+int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk){   
     char *linha;  
-    char buffer[256];    
-        fseek(tabela ,0, SEEK_SET);        
+    char buffer[256];  
+    int controle=0;  
+        fseek(tabela ,0, SEEK_CUR);   
         while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
         {    
             if(strstr(buffer, "[") == NULL){
             // É UMA TUPLA
             linha = strtok(strtok(buffer,"{"),",");
-            printf("> %s\n", linha);
-            if(strcmp(nome,linha)==0){
-              //já existe
-              return -1;
-            }
-            return 0;        
-            }
-        }       
-    } 
+            fprintf(pk, "%s\n", linha);
+            }            
+        }
+        return 0;
+      }
 
 int contarLinhas(FILE* tabela){
     int colunas = 0, ch = 0;
@@ -104,3 +105,16 @@ int contarLinhas(FILE* tabela){
       }
       return colunas;
   }
+int verificarPk(FILE *pk, char *nome){
+  char *aux = (char*) malloc (20*1);
+  fseek(pk, 0, SEEK_SET);
+  while(!feof(pk)){
+    fscanf(pk, "%s", aux);
+    if(strcmp(aux,nome)==0){
+      free(aux);
+      return -1;
+    }
+  }
+  free(aux);
+  return 0;
+}
