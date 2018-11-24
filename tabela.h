@@ -26,7 +26,8 @@ void pesquisarValor();
 
 //funções reaproveitaveis
 int escreverAtributos(char *nome, Atributo *atributo);
-int contarColunas(FILE* tabela, char separador);
+int contarSeparador(FILE* tabela, char separador);
+
 int verificaColunas(FILE *tabela, char *nome);
 char* listarColunas(FILE *tabela);
 

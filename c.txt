@@ -1,0 +1,5 @@
+[id (int)]
+[tamanho (char)]
+[idade (int)]
+{1, P, 11}
+{2, PPP, 12}

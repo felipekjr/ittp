@@ -104,7 +104,7 @@
   int verificaColunas(FILE *tabela, char *nome){
       int count = 0, k = 0;        
       char buffer[256];   
-      int qnt_colunas = contarColunas(tabela, '[');        
+      int qnt_colunas = contarSeparador(tabela, '[');        
       char **linhas = (char**) calloc(qnt_colunas, sizeof(char*));
       if(linhas == NULL){
         fprintf(stderr, "Erro1");
@@ -133,8 +133,9 @@
       return 0;          
   }
 
-int contarColunas(FILE* tabela, char separador){
+int contarSeparador(FILE* tabela, char separador){
     int colunas = 0, ch = 0;
+    fseek(tabela,0, SEEK_SET);
     while(!feof(tabela))
       {
         ch = fgetc(tabela);

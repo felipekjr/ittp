@@ -1,0 +1,6 @@
+[id (int)]
+[tamanho (char)]
+[idade (int)]
+
+{1, Q, 18}
+{2, Q, 155}

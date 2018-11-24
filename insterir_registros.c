@@ -5,7 +5,6 @@
 #include <ctype.h>
 
 int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk);
-int contarLinhas(FILE* tabela);
 int verificarPk(FILE *pk, char *nome);
 
 void inserirRegistros(){
@@ -30,7 +29,7 @@ void inserirRegistros(){
       }
     }while(tabela == NULL);
     //le cada linha do arquivo        
-    colunas = contarColunas(tabela, '[');
+    colunas = contarSeparador(tabela, '[');
     //colocando para ler no inicio do documento
     tabela = fopen (nome_tabela, "a+");
     jogarPkArquivo(tabela, valor,pk);
@@ -60,12 +59,12 @@ void inserirRegistros(){
       }
     }   
     fseek(tabela,0,SEEK_END);
-    fprintf(tabela,"\n{");
+    fprintf(tabela,"{");
     fseek(respostas,0, SEEK_SET);
     for(int i = 1; i<=colunas;i++){
       fscanf(respostas,"%s, ", valor);
       if (i == colunas){
-        fprintf(tabela,"%s}", valor);
+        fprintf(tabela,"%s}\n", valor);
       }else{
         fprintf(tabela,"%s, ", valor);
       }
@@ -94,18 +93,7 @@ int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk){
         return 0;
       }
 
-int contarLinhas(FILE* tabela){
-    int colunas = 0, ch = 0;
-    while(!feof(tabela))
-      {
-        ch = fgetc(tabela);
-        if(ch == '{')
-        {
-          colunas++;
-        }
-      }
-      return colunas;
-  }
+
 int verificarPk(FILE *pk, char *nome){
   char *aux = (char*) malloc (20*1);  
   fseek(pk, 0, SEEK_SET);  
