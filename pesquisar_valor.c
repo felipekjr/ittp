@@ -97,10 +97,16 @@ void pesquisarMaiores(FILE *tabela, char* valor){
 
 char* listarValores(FILE* tabela, int separador){
     int qnt_linhas = contarSeparador(tabela, '{');
-    char **linhas = listarLinhas(tabela);
-    for(int i = 0; i<qnt_linhas; i++){
-        //contar os separadores e exibir
+    char **linhas = listarLinhas(tabela);    
+    char *token;
+    for(int i = 0; i<qnt_linhas; i++){        
+        token = strtok(linhas[i], ",");
     }
+    while( token != NULL ) {    
+      printf( " %s\n", token);    
+      token = strtok(NULL, ",");      
+   }
+
 }
 
 char **listarLinhas(FILE* tabela){
