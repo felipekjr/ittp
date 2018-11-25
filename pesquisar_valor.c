@@ -17,6 +17,7 @@ void pesquisarValor(){
     char **colunas, *coluna_escolhida, *valor;          
     int option = -1, qnt_colunas, existeColuna = 0;
     FILE *tabela;       
+    valor = (char*)calloc(20,1);
     nome_tabela = (char *) malloc (20*sizeof(char));
     coluna_escolhida = (char *) malloc (20*sizeof(char));
     if(nome_tabela == NULL){
@@ -51,9 +52,10 @@ void pesquisarValor(){
             }            
         }while(existeColuna != 1);
         //o valor da coluna digitado está correto
-        printf("Digite o valor a ser pesquisado: ");        
+        printf("Digite o valor a ser pesquisado: ");  
+        getchar();      
         scanf("%s", valor);
-        getchar();
+        printf("%s", valor);
         while(option != 0){
             printf("ESCOLHA UMA DAS OPÇÕES:\n");
             printf("0 - SAIR\n");
@@ -66,16 +68,20 @@ void pesquisarValor(){
             scanf("%d", &option);           
             switch(option){
                 case 1: pesquisarMaiores(tabela, valor, coluna_escolhida); break;
-                /*case 2: pesquisarMaioresIguais(tabela, valor, coluna_escolhida); break;
+                case 2: pesquisarMaioresIguais(tabela, valor,coluna_escolhida); break;
                 case 3: pesquisarIguais(tabela, valor, coluna_escolhida); break;
                 case 4: pesquisarMenores(tabela, valor, coluna_escolhida); break;
                 case 5: pesquisarMenoresIguais(tabela, valor, coluna_escolhida); break;
-                case 6: pesquisarProximos(tabela, valor, coluna_escolhida); break;*/
+                case 6: pesquisarProximos(tabela, valor, coluna_escolhida); break;
                 default: break;
             }  
         }      
 
     }
+    free(valor);
+    free(coluna_escolhida);
+    free(nome_tabela);
+
     fclose(tabela);
 }
 
@@ -108,42 +114,54 @@ void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strcmp(valores[i],valor)>0){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strcmp(valores[i],valor)>=0){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strcmp(valores[i],valor)==0){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strcmp(valores[i],valor)<0){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strcmp(valores[i],valor)<=0){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
+        if(strstr(valor,valores[i])!= NULL || strstr(valores[i],valor)!= NULL){
         fprintf(stdout, "%s\n", valores[i]);
+        }
     }  
 }
 
