@@ -6,11 +6,16 @@ char** listarValores(FILE* tabela, char* separador);
 char **listarLinhas(FILE* tabela);
 char **listarColunasOrdem(FILE *tabela);
 void pesquisarMaiores(FILE *tabela, char* valor, char* coluna);
+void pesquisarMaioresIguais(FILE *tabela, char* valor, char* coluna);
+void pesquisarIguais(FILE *tabela, char* valor, char* coluna);
+void pesquisarMenores(FILE *tabela, char* valor, char* coluna);
+void pesquisarMenoresIguais(FILE *tabela, char* valor, char* coluna);
+void pesquisarProximos(FILE *tabela, char* valor, char* coluna);
 
 void pesquisarValor(){
     char *nome_tabela;  
     char **colunas, *coluna_escolhida, *valor;          
-    int option, qnt_colunas, existeColuna = 0;
+    int option = -1, qnt_colunas, existeColuna = 0;
     FILE *tabela;       
     nome_tabela = (char *) malloc (20*sizeof(char));
     coluna_escolhida = (char *) malloc (20*sizeof(char));
@@ -47,17 +52,25 @@ void pesquisarValor(){
         }while(existeColuna != 1);
         //o valor da coluna digitado está correto
         printf("Digite o valor a ser pesquisado: ");        
-        fscanf(stdin, "%s", valor);
+        scanf("%s", valor);
         getchar();
         while(option != 0){
             printf("ESCOLHA UMA DAS OPÇÕES:\n");
             printf("0 - SAIR\n");
             printf("1 - Valores maiores que o informado\n");
             printf("2 - Valores maiores ou iguais que o informado\n");
-            printf("3 - Valores iguais que o informado\n");           
-            scanf("%d", &option);            
+            printf("3 - Valores iguais que o informado\n");
+            printf("4 - Valores menores que o valor informado\n"); 
+            printf("5 - Valores menores ou iguais que o valor informado\n"); 
+            printf("6 - Valores próximos ao valor informado(se aplica apenas se a coluna for do tipo string)\n"); 
+            scanf("%d", &option);           
             switch(option){
                 case 1: pesquisarMaiores(tabela, valor, coluna_escolhida); break;
+                /*case 2: pesquisarMaioresIguais(tabela, valor, coluna_escolhida); break;
+                case 3: pesquisarIguais(tabela, valor, coluna_escolhida); break;
+                case 4: pesquisarMenores(tabela, valor, coluna_escolhida); break;
+                case 5: pesquisarMenoresIguais(tabela, valor, coluna_escolhida); break;
+                case 6: pesquisarProximos(tabela, valor, coluna_escolhida); break;*/
                 default: break;
             }  
         }      
@@ -90,7 +103,43 @@ char **listarColunasOrdem(FILE *tabela){
 }
 
 
-void pesquisarMaiores(FILE *tabela, char* valor, char* coluna){
+void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){
+    printf("Entrei!\n");
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
+}
+void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
+}
+void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
+}
+void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
+}
+void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
+}
+void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
