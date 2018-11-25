@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tabela.h"
-char* listarValores(FILE* tabela, int separador);
+char** listarValores(FILE* tabela, char* separador);
 char **listarLinhas(FILE* tabela);
 char **listarColunasOrdem(FILE *tabela);
-void pesquisarMaiores(FILE *tabela, char* valor);
+void pesquisarMaiores(FILE *tabela, char* valor, char* coluna);
 
 void pesquisarValor(){
     char *nome_tabela;  
@@ -57,7 +57,7 @@ void pesquisarValor(){
             printf("3 - Valores iguais que o informado\n");           
             scanf("%d", &option);            
             switch(option){
-                case 1: pesquisarMaiores(tabela, valor); break;
+                case 1: pesquisarMaiores(tabela, valor, coluna_escolhida); break;
                 default: break;
             }  
         }      
@@ -65,7 +65,6 @@ void pesquisarValor(){
     }
     fclose(tabela);
 }
-
 
 char **listarColunasOrdem(FILE *tabela){
     char *coluna;
@@ -91,21 +90,39 @@ char **listarColunasOrdem(FILE *tabela){
 }
 
 
-void pesquisarMaiores(FILE *tabela, char* valor){
-    listarValores(tabela, 1);    
+void pesquisarMaiores(FILE *tabela, char* valor, char* coluna){
+    int qnt_linhas = contarSeparador(tabela, '{'); 
+    char **valores = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){
+        fprintf(stdout, "%s\n", valores[i]);
+    }  
 }
 
-char* listarValores(FILE* tabela, int separador){
-    int qnt_linhas = contarSeparador(tabela, '{');
+char** listarValores(FILE* tabela, char* coluna){
+    int qnt_linhas = contarSeparador(tabela, '{');   
     char **linhas = listarLinhas(tabela);    
-    char *token;
-    for(int i = 0; i<qnt_linhas; i++){        
-        token = strtok(linhas[i], ",");
-    }
-    while( token != NULL ) {    
-      printf( " %s\n", token);    
-      token = strtok(NULL, ",");      
-   }
+    char **linhas_token = (char**) calloc(qnt_linhas, sizeof(char*)); 
+    char **valores = (char**) calloc(qnt_linhas, sizeof(char*));   
+    int j,count;    
+    char *aux;
+    char *buffer;    
+    for(int i = 0; i<qnt_linhas; i++){  
+        j = 0;                
+        //corta a linha de acordo com o separador em substrings 
+        linhas_token[i] = (char*) calloc(20, sizeof(char));   
+        linhas_token[i] = strtok(linhas[i],",");
+        while(linhas_token[i] != NULL || j != 1)       
+        {   
+            
+            if(j == atoi(coluna)-1){
+                valores[i] = (char*) calloc(20, sizeof(char));
+                sprintf(valores[i], "%s", linhas_token[i]);                
+                j = 1 ;
+            }    
+            linhas_token[i] =strtok(NULL, ",");
+        }                 
+    }  
+    return valores;
 
 }
 
