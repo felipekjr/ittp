@@ -62,11 +62,11 @@ void inserirRegistros(){
     fprintf(tabela,"{");
     fseek(respostas,0, SEEK_SET);
     for(int i = 1; i<=colunas;i++){
-      fscanf(respostas,"%s, ", valor);
+      fscanf(respostas,"%s,", valor);
       if (i == colunas){
         fprintf(tabela,"%s}\n", valor);
       }else{
-        fprintf(tabela,"%s, ", valor);
+        fprintf(tabela,"%s,", valor);
       }
     }
     fclose(pk);

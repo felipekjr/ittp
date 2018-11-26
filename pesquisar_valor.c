@@ -108,23 +108,46 @@ char **listarColunasOrdem(FILE *tabela){
     return aux;       
 }
 
-
-void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){
-    printf("Entrei!\n");
+void printarTuplas(FILE *tabela, char *coluna, char *valor){
+    char buffer[256];
+    char *linha;
+    char **linhas = listarLinhas(tabela);  
+    int i = 0;
+    fseek(tabela ,0, SEEK_SET);    
+    while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
+    {    
+        fseek(tabela ,0, SEEK_CUR);
+        if(strstr(buffer, "[") == NULL){
+        // É UMA TUPLA
+            linha = strtok(strtok(buffer,"{"),"}");            
+            if(strstr(linha,valor) != NULL){
+                fprintf(stdout, "%s\n", linha);
+            }            
+            // if(strcmp(strstr(linha,valor), valor) == 0){
+            //     printf("%s\n", linha);
+            // }   
+                             
+        }      
+              
+    }
+    
+}
+void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){    
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)>0){
-        fprintf(stdout, "%s\n", valores[i]);
+        if(strcmp(valores[i],valor)>0){        
+        printarTuplas(tabela, coluna, valores[i]);
         }
     }  
+   
 }
 void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
         if(strcmp(valores[i],valor)>=0){
-        fprintf(stdout, "%s\n", valores[i]);
+        printarTuplas(tabela, coluna, valores[i]);
         }
     }  
 }
@@ -133,7 +156,7 @@ void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
         if(strcmp(valores[i],valor)==0){
-        fprintf(stdout, "%s\n", valores[i]);
+       printarTuplas(tabela, coluna, valores[i]);
         }
     }  
 }
@@ -142,7 +165,7 @@ void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
         if(strcmp(valores[i],valor)<0){
-        fprintf(stdout, "%s\n", valores[i]);
+        printarTuplas(tabela, coluna, valores[i]);
         }
     }  
 }
@@ -151,7 +174,7 @@ void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
         if(strcmp(valores[i],valor)<=0){
-        fprintf(stdout, "%s\n", valores[i]);
+        printarTuplas(tabela, coluna, valores[i]);
         }
     }  
 }
@@ -160,7 +183,7 @@ void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     char **valores = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
         if(strstr(valor,valores[i])!= NULL || strstr(valores[i],valor)!= NULL){
-        fprintf(stdout, "%s\n", valores[i]);
+        printarTuplas(tabela, coluna, valores[i]);
         }
     }  
 }
@@ -170,23 +193,30 @@ char** listarValores(FILE* tabela, char* coluna){
     char **linhas = listarLinhas(tabela);    
     char **linhas_token = (char**) calloc(qnt_linhas, sizeof(char*)); 
     char **valores = (char**) calloc(qnt_linhas, sizeof(char*));   
-    int j,count;    
-    char *aux;
-    char *buffer;    
+    int j,count;        
     for(int i = 0; i<qnt_linhas; i++){  
         j = 0;                
         //corta a linha de acordo com o separador em substrings 
         linhas_token[i] = (char*) calloc(20, sizeof(char));   
         linhas_token[i] = strtok(linhas[i],",");
-        while(linhas_token[i] != NULL || j != 1)       
+        while(linhas_token[i] != NULL)       
         {   
             
             if(j == atoi(coluna)-1){
                 valores[i] = (char*) calloc(20, sizeof(char));
-                sprintf(valores[i], "%s", linhas_token[i]);                
-                j = 1 ;
-            }    
+                sprintf(valores[i], "%s", linhas_token[i]); 
+                              
+                j++;
+            }else if(j!=atoi(coluna)-1){
+                              
+                j++;    
+            }
+            else{
+                j++;
+            }             
+               
             linhas_token[i] =strtok(NULL, ",");
+            
         }                 
     }  
     return valores;
