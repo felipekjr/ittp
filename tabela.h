@@ -24,6 +24,7 @@ void listarDados();
 void inserirRegistros();
 void pesquisarValor();
 void apagarTabela();
+void apagarRegistro();
 //funções reaproveitaveis
 int escreverAtributos(char *nome, Atributo *atributo);
 int contarSeparador(FILE* tabela, char separador);
