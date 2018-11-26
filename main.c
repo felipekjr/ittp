@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
             //apagar_registro(); //checkpoint 4
             break;
             case 7:
-            //apagar_tabela(); //checkpoint 4
+            apagarTabela(); //checkpoint 4
             break;
             default:
             //printf("Valor inválido!");
