@@ -2,7 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tabela.h"
-char** listarValores(FILE* tabela, char* separador);
+#include <ctype.h>
+
+typedef struct colunalinha{
+	char *coluna;
+	char *linha;		
+}ColunaLinha;
+
+ColunaLinha* listarValores(FILE* tabela, char* separador);
 char **listarLinhas(FILE* tabela);
 char **listarColunasOrdem(FILE *tabela);
 void pesquisarMaiores(FILE *tabela, char* valor, char* coluna);
@@ -65,8 +72,9 @@ void pesquisarValor(){
             printf("4 - Valores menores que o valor informado\n"); 
             printf("5 - Valores menores ou iguais que o valor informado\n"); 
             printf("6 - Valores próximos ao valor informado(se aplica apenas se a coluna for do tipo string)\n"); 
-            scanf("%d", &option);           
-            switch(option){
+            scanf("%d", &option);  
+            printf("RESULTADO:\n");         
+            switch(option){                
                 case 1: pesquisarMaiores(tabela, valor, coluna_escolhida); break;
                 case 2: pesquisarMaioresIguais(tabela, valor,coluna_escolhida); break;
                 case 3: pesquisarIguais(tabela, valor, coluna_escolhida); break;
@@ -108,119 +116,133 @@ char **listarColunasOrdem(FILE *tabela){
     return aux;       
 }
 
-void printarTuplas(FILE *tabela, char *coluna, char *valor){
-    char buffer[256];
-    char *linha;
-    char **linhas = listarLinhas(tabela);  
-    int i = 0;
-    fseek(tabela ,0, SEEK_SET);    
-    while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
-    {    
-        fseek(tabela ,0, SEEK_CUR);
-        if(strstr(buffer, "[") == NULL){
-        // É UMA TUPLA
-            linha = strtok(strtok(buffer,"{"),"}");            
-            if(strstr(linha,valor) != NULL){
-                fprintf(stdout, "%s\n", linha);
-            }            
-            // if(strcmp(strstr(linha,valor), valor) == 0){
-            //     printf("%s\n", linha);
-            // }   
-                             
-        }      
-              
-    }
-    
-}
 void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){    
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
-    for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)>0){        
-        printarTuplas(tabela, coluna, valores[i]);
-        }
-    }  
-   
+    ColunaLinha* obj = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){        
+        if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
+            if(atof(obj[i].coluna) > atoi(valor)){
+                printf("%s\n", obj[i].linha);
+            }else{
+                continue;
+            }            
+        }      
+        else if(strcmp(obj[i].coluna,valor)>0){
+             printf("%s\n", obj[i].linha);
+        }    
+    }     
 }
 void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
-    for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)>=0){
-        printarTuplas(tabela, coluna, valores[i]);
-        }
+    ColunaLinha* obj = listarValores(tabela, coluna);  
+    for(int i = 0; i < qnt_linhas; i++){                
+        if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
+            if(atof(obj[i].coluna) >= atoi(valor)){
+                printf("%s\n", obj[i].linha);
+            }else{
+                continue;
+            }            
+        }      
+        else if(strcmp(obj[i].coluna,valor)>=0){
+             printf("%s\n", obj[i].linha);
+        }    
+    
     }  
 }
 void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)==0){
-       printarTuplas(tabela, coluna, valores[i]);
-        }
+       
+        if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
+            if(atof(obj[i].coluna) == atoi(valor)){
+                printf("%s\n", obj[i].linha);
+            }else{
+                continue;
+            }            
+        }      
+        else if(strcmp(obj[i].coluna,valor)==0){
+             printf("%s\n", obj[i].linha);
+        }    
+    
     }  
 }
 void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)<0){
-        printarTuplas(tabela, coluna, valores[i]);
-        }
+              
+        if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
+            if(atof(obj[i].coluna) < atoi(valor)){
+                printf("%s\n", obj[i].linha);
+            }else{
+                continue;
+            }            
+        }      
+        else if(strcmp(obj[i].coluna,valor)<0){
+             printf("%s\n", obj[i].linha);
+        }    
+    
     }  
 }
 void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
-        if(strcmp(valores[i],valor)<=0){
-        printarTuplas(tabela, coluna, valores[i]);
-        }
+            
+        if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
+            if(atof(obj[i].coluna) <= atoi(valor)){
+                printf("%s\n", obj[i].linha);
+            }else{
+                continue;
+            }            
+        }      
+        else if(strcmp(obj[i].coluna,valor)<=0){
+             printf("%s\n", obj[i].linha);
+        }    
+    
     }  
 }
 void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    char **valores = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna);  
     for(int i = 0; i < qnt_linhas; i++){
-        if(strstr(valor,valores[i])!= NULL || strstr(valores[i],valor)!= NULL){
-        printarTuplas(tabela, coluna, valores[i]);
+        if(strstr(valor,obj[i].coluna)!= NULL || strstr(obj[i].coluna,valor)!= NULL){
+            printf("%s\n", obj[i].linha);        
         }
     }  
 }
 
-char** listarValores(FILE* tabela, char* coluna){
+ColunaLinha* listarValores(FILE* tabela, char* coluna){
     int qnt_linhas = contarSeparador(tabela, '{');   
-    char **linhas = listarLinhas(tabela);    
-    char **linhas_token = (char**) calloc(qnt_linhas, sizeof(char*)); 
-    char **valores = (char**) calloc(qnt_linhas, sizeof(char*));   
+    char **linhas = listarLinhas(tabela); 
+    char **linhas_aux = listarLinhas(tabela); 
+    char **linhas_token = (char**) calloc(qnt_linhas, sizeof(char*));      
+    ColunaLinha *obj = (ColunaLinha*) calloc(qnt_linhas, sizeof(ColunaLinha)); 
     int j,count;        
     for(int i = 0; i<qnt_linhas; i++){  
         j = 0;                
         //corta a linha de acordo com o separador em substrings 
-        linhas_token[i] = (char*) calloc(20, sizeof(char));   
+        linhas_token[i] = (char*) calloc(20, sizeof(char));
         linhas_token[i] = strtok(linhas[i],",");
         while(linhas_token[i] != NULL)       
-        {   
+        {               
             
-            if(j == atoi(coluna)-1){
-                valores[i] = (char*) calloc(20, sizeof(char));
-                sprintf(valores[i], "%s", linhas_token[i]); 
-                              
+            if(j == atoi(coluna)-1){                                
+                obj[i].coluna = linhas_token[i];           
+                obj[i].linha = linhas_aux[i];                  
                 j++;
-            }else if(j!=atoi(coluna)-1){
-                              
+            }else if(j!=atoi(coluna)-1){                              
                 j++;    
             }
             else{
                 j++;
-            }             
-               
+            }  
             linhas_token[i] =strtok(NULL, ",");
             
         }                 
     }  
-    return valores;
-
+    return obj;
 }
 
 char **listarLinhas(FILE* tabela){
