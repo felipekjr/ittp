@@ -28,10 +28,10 @@ int main(int argc, char const *argv[])
             pesquisarValor(); //checkpoint 3
             break;
             case 6:
-            // apagarRegistro(); //checkpoint 4
+            apagarRegistro(); //checkpoint 4
             break;
             case 7:
-            // apagarTabela(); //checkpoint 4
+            apagarTabela(); //checkpoint 4
             break;
             default:
             printf("Valor inválido!");
