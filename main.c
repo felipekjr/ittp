@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
             apagarTabela(); //checkpoint 4
             break;
             default:
-            //printf("Valor inválido!");
+            printf("Valor inválido!");
             break;
         }
     }while(op != 0);
