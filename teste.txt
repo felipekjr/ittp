@@ -1,7 +1,0 @@
-[id (int)]
-[tamanho (char)]
-[idade (int)]
-{1,Q,11}
-{2,A,155}
-{3,B,15}
-

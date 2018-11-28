@@ -33,8 +33,7 @@ int main(int argc, char const *argv[])
             case 7:
             apagarTabela(); //checkpoint 4
             break;
-            default:
-            printf("Valor inválido!");
+            default:            
             break;
         }
     }while(op != 0);

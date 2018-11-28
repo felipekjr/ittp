@@ -61,8 +61,7 @@ void pesquisarValor(){
         //o valor da coluna digitado está correto
         printf("Digite o valor a ser pesquisado: ");  
         getchar();      
-        scanf("%s", valor);
-        printf("%s", valor);
+        scanf("%s", valor);        
         while(option != 0){
             printf("ESCOLHA UMA DAS OPÇÕES:\n");
             printf("0 - SAIR\n");
@@ -72,8 +71,8 @@ void pesquisarValor(){
             printf("4 - Valores menores que o valor informado\n"); 
             printf("5 - Valores menores ou iguais que o valor informado\n"); 
             printf("6 - Valores próximos ao valor informado(se aplica apenas se a coluna for do tipo string)\n"); 
-            scanf("%d", &option);  
-            printf("RESULTADO:\n");         
+            scanf("%d", &option);
+                    
             switch(option){                
                 case 1: pesquisarMaiores(tabela, valor, coluna_escolhida); break;
                 case 2: pesquisarMaioresIguais(tabela, valor,coluna_escolhida); break;
@@ -118,10 +117,11 @@ char **listarColunasOrdem(FILE *tabela){
 
 void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){    
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    ColunaLinha* obj = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna); 
+    printf("RESULTADO:\n");  
     for(int i = 0; i < qnt_linhas; i++){        
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
-            if(atof(obj[i].coluna) > atoi(valor)){
+            if(atof(obj[i].coluna) > atoi(valor)){                
                 printf("%s\n", obj[i].linha);
             }else{
                 continue;
@@ -135,6 +135,7 @@ void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){
 void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){                
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) >= atoi(valor)){
@@ -152,6 +153,7 @@ void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
 void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
        
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
@@ -170,6 +172,7 @@ void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
 void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
               
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
@@ -188,6 +191,7 @@ void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
 void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
             
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
@@ -206,6 +210,7 @@ void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
 void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
         if(strstr(valor,obj[i].coluna)!= NULL || strstr(obj[i].coluna,valor)!= NULL){
             printf("%s\n", obj[i].linha);        

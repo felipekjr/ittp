@@ -1,4 +1,0 @@
-[id (int)]
-[tamanho (int)]
-[idade (char)]
-{1, 12, Q}
