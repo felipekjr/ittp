@@ -88,7 +88,11 @@
                 printf("Digite um valor válido!\n");            
             } 
             int length= strlen(ptr_att->nome);
-            fprintf(tabela, "[%s (%s)]\n",ptr_att->nome, ptr_att->tipo); 
+            if(ptr_att->tipo == "string"){
+              fprintf(tabela, "[%s (%s|%d|)]\n",ptr_att->nome, ptr_att->tipo, string_size);   
+            }else{
+              fprintf(tabela, "[%s (%s)]\n",ptr_att->nome, ptr_att->tipo); 
+            }            
             coluna_counter++;
           }else{
             printf("Já existe uma coluna com esse nome!\n");
