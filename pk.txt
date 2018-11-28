@@ -1,6 +1,0 @@
-[id (int)]
-[nome (string|30|)]
-[idade (int)]
-{1,1,1}
-{2,FELIPE,18}
-{2,FELIPE,18}
