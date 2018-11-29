@@ -25,7 +25,7 @@ void inserirRegistros(){
       tabela = fopen(strcat(nome_tabela, ".txt"), "r+");     
       if (tabela==NULL)
       {
-        printf("Essa tabela não existe!.\n");        
+        printf(RED"Essa tabela não existe!\n"RESET);        
       }
     }while(tabela == NULL);
     //le cada linha do arquivo        
@@ -33,7 +33,7 @@ void inserirRegistros(){
     //colocando para ler no inicio do documento
     tabela = fopen (nome_tabela, "a+");
     jogarPkArquivo(tabela, valor,pk);
-    printf("Processo pk concluido com sucesso!\n");
+    printf(GREEN"Processo pk concluido com sucesso!\n"RESET);
     printf("=Digite os valores da tabela %s=\n", nome_tabela);
     fseek(tabela,0,SEEK_SET);
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
@@ -46,7 +46,7 @@ void inserirRegistros(){
           printf("%s: ", nome_atributo);  
           scanf("%s", valor);
           if(verificarPk(pk, valor)==-1){
-            printf("ERRO! Valor da PK invalido\n");
+            printf(RED"ERRO! Valor da PK invalido\n"RESET);
           }
           }while(verificarPk(pk, valor)==-1);
           fprintf(respostas,"%s\n", valor);
@@ -69,6 +69,7 @@ void inserirRegistros(){
         fprintf(tabela,"%s,", valor);
       }
     }
+    printf(GREEN"Valores inseridos.\n"RESET);
     fclose(pk);
     fclose(respostas);
     fclose(tabela);
