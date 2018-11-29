@@ -56,5 +56,5 @@ char* listarColunas(FILE *tabela){
             }
         }
         printf("\n");
-        return aux; 
+        return aux;
 }
