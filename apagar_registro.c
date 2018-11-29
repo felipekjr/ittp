@@ -20,9 +20,10 @@ void apagarRegistro(){
       tabela = fopen(strcat(nome_tabela, ".txt"), "r+");     
       if (tabela==NULL)
       {
-        printf("Essa tabela não existe!.\n");        
+        printf(RED"Erro! Essa tabela não existe!\n"RESET);        
       }
     }while(tabela == NULL);
+      printf(GREEN"Tabela escolhida com sucesso!\n"RESET);    
       printf("Digite a primary key (obs, se a PK nao existir, não vai apagar nenhuma linha):\n");
       scanf("%s", p_key);
       fseek(tabela ,0, SEEK_SET);
