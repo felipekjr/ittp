@@ -37,7 +37,7 @@ void pesquisarValor(){
             tabela = fopen (strcat(nome_tabela,".txt"), "r+");
             if (tabela==NULL)
             {
-                printf("Essa tabela não existe!\n");               
+                printf(RED"Essa tabela não existe!\n"RESET);               
             }        
         }while(tabela == NULL);         
             printf("Escolha uma das colunas disponíveis: \n");    
@@ -275,4 +275,4 @@ char **listarLinhas(FILE* tabela){
         } 
         return linhas;      
     }
-}
+} 
