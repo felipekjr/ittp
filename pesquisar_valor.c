@@ -88,7 +88,6 @@ void pesquisarValor(){
     free(valor);
     free(coluna_escolhida);
     free(nome_tabela);
-
     fclose(tabela);
 }
 
@@ -118,104 +117,139 @@ char **listarColunasOrdem(FILE *tabela){
 void pesquisarMaiores(FILE *tabela, char *valor, char *coluna){    
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna); 
+    int count = 0;
     printf("RESULTADO:\n");  
     for(int i = 0; i < qnt_linhas; i++){        
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) > atoi(valor)){                
-                printf("%s\n", obj[i].linha);
+                printf(CYAN"%s\n"RESET, obj[i].linha);
+                count++;
             }else{
                 continue;
             }            
         }      
         else if(strcmp(obj[i].coluna,valor)>0){
-             printf("%s\n", obj[i].linha);
-        }    
+             printf(CYAN"%s\n"RESET, obj[i].linha);
+             count++;
+        }  
+    }
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
     }     
 }
 void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    int count = 0;
     printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){                
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) >= atoi(valor)){
-                printf("%s\n", obj[i].linha);
+                printf(CYAN"%s\n"RESET, obj[i].linha);
+                count++;
             }else{
                 continue;
             }            
         }      
         else if(strcmp(obj[i].coluna,valor)>=0){
-             printf("%s\n", obj[i].linha);
+             printf(CYAN"%s\n"RESET, obj[i].linha);
+             count++;
         }    
     
-    }  
+    }
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
+    }    
 }
 void pesquisarIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    int count = 0;
     printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
        
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) == atoi(valor)){
-                printf("%s\n", obj[i].linha);
+                printf(CYAN"%s\n"RESET, obj[i].linha);
+                count++;
             }else{
                 continue;
             }            
         }      
         else if(strcmp(obj[i].coluna,valor)==0){
-             printf("%s\n", obj[i].linha);
+             printf(CYAN"%s\n"RESET, obj[i].linha);
+             count++;
         }    
     
-    }  
+    } 
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
+    }   
 }
 void pesquisarMenores(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    int count = 0;
     printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
               
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) < atoi(valor)){
-                printf("%s\n", obj[i].linha);
+                printf(CYAN"%s\n"RESET, obj[i].linha);
+                count++;
             }else{
                 continue;
             }            
         }      
         else if(strcmp(obj[i].coluna,valor)<0){
-             printf("%s\n", obj[i].linha);
+             printf(CYAN"%s\n"RESET, obj[i].linha);
+             count++;
         }    
     
-    }  
+    } 
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
+    }   
 }
 void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
-    ColunaLinha* obj = listarValores(tabela, coluna);  
+    ColunaLinha* obj = listarValores(tabela, coluna); 
+    int count = 0; 
     printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
             
         if(atof(valor) != 0 && atof(obj[i].coluna) != 0 ){
             if(atof(obj[i].coluna) <= atoi(valor)){
-                printf("%s\n", obj[i].linha);
+                printf(CYAN"%s\n"RESET, obj[i].linha);
+                count++;
             }else{
                 continue;
             }            
         }      
         else if(strcmp(obj[i].coluna,valor)<=0){
-             printf("%s\n", obj[i].linha);
-        }    
+             printf(CYAN"%s\n"RESET, obj[i].linha);
+             count++;
+        }   
     
-    }  
+    } 
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
+    }   
 }
 void pesquisarProximos(FILE *tabela, char *valor, char *coluna){
     int qnt_linhas = contarSeparador(tabela, '{'); 
     ColunaLinha* obj = listarValores(tabela, coluna);  
+    int count = 0;
     printf("RESULTADO:\n"); 
     for(int i = 0; i < qnt_linhas; i++){
         if(strstr(valor,obj[i].coluna)!= NULL || strstr(obj[i].coluna,valor)!= NULL){
-            printf("%s\n", obj[i].linha);        
+            printf(CYAN"%s\n"RESET, obj[i].linha);     
+            count++;   
         }
-    }  
+    } 
+    if(count == 0){
+        printf(YELLOW"Nenhum valor encontrado\n"RESET);
+    }   
 }
 
 ColunaLinha* listarValores(FILE* tabela, char* coluna){

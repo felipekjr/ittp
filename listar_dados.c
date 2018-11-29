@@ -20,11 +20,11 @@ void listarDados(){
             tabela = fopen (strcat(nome_tabela,".txt"), "r+");
             if (tabela==NULL)
             {
-                printf("Essa tabela não existe!\n");               
+                printf(RED"Essa tabela não existe!\n"RESET);               
             }        
         }while(tabela == NULL);         
         int s_nome = strlen(nome_tabela);
-        fprintf(stdout, "TABELA: %.*s\n", s_nome-4, nome_tabela);                         
+        fprintf(stdout, "TABELA: %.*s\n\n", s_nome-4, nome_tabela);                         
         listarColunas(tabela);
         tabela = fopen (nome_tabela, "a+");  
         fseek(tabela ,0, SEEK_CUR);   
@@ -36,6 +36,7 @@ void listarDados(){
             printf("%s\n", linha);         
             }            
         }
+        printf("\n");
         free(nome_tabela);        
     }        
     fclose(tabela);    

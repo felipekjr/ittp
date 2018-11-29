@@ -17,8 +17,7 @@
       do{
             printf("Digite o nome da tabela: ");    
             fscanf(stdin, "%s", nome_tabela);            
-            aux = fopen (strcat(nome_tabela,".txt"), "r+");
-            printf("%s\n", nome_tabela);
+            aux = fopen (strcat(nome_tabela,".txt"), "r+");            
             if (aux!=NULL)
             {
                 printf(RED"Essa tabela ja existe!\n"RESET); 

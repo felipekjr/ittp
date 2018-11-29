@@ -47,7 +47,7 @@ void apagarRegistro(){
             }
           }         
     if(controle == 0){
-        printf("Chave primária inexistente!\n");
+        printf(RED"Chave primária inexistente!\n"RESET);
     }
     remove(nome_tabela);
     rename("respostas.txt",nome_tabela);
