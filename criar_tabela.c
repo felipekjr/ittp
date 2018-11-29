@@ -9,24 +9,32 @@
 
 
   void criarTabela(){
-      FILE *ptr_arq; //Ponteiro do arquivo
+      FILE *ptr_arq;
+      FILE *aux;
+       //Ponteiro do arquivo
       char *nome_tabela;
       nome_tabela = (char *) malloc (20*sizeof(char));
-      printf("Digite o nome da sua tabela: ");
-      getchar();
-      fscanf(stdin, "%s", nome_tabela);
-      strcat(nome_tabela,".txt");
-
+      do{
+            printf("Digite o nome da tabela: ");    
+            fscanf(stdin, "%s", nome_tabela);            
+            aux = fopen (strcat(nome_tabela,".txt"), "r+");
+            printf("%s\n", nome_tabela);
+            if (aux!=NULL)
+            {
+                printf(RED"Essa tabela ja existe!\n"RESET); 
+            }        
+        }while(aux != NULL);  
       //criando o arquivo com o nome da tabela
     ptr_arq = fopen(nome_tabela, "w+");
     if(ptr_arq==NULL){    
-      printf("Erro de criacao");
+      printf(RED"Erro de criacao"RESET);
     }
     else{
+      printf(GREEN"Nome da tabela escolhido com sucesso!\n"RESET);    
       if(definirAtributos(ptr_arq)>=0){
-        printf("Tabela criada com sucesso!\n");              
+        printf(GREEN"Tabela criada com sucesso!\n"RESET);              
       }else{
-        printf("Houve um erro ao tentar criar a tabela!\n");
+        printf(RED"Houve um erro ao tentar criar a tabela!\n"RESET);
       }   
     }
     free(nome_tabela);
@@ -39,7 +47,7 @@
     int coluna_counter=1,option, string_size;  
     Atributo *ptr_att = (Atributo*) calloc(1,sizeof(Atributo));   
     if(ptr_att==NULL){
-      printf("Erro de memória!\n");
+      printf(RED"Erro de memória!\n"RESET);
       return (-1);
     }
     else {    
@@ -85,7 +93,7 @@
                 scanf("%d", &string_size);                
                 break; 
               default:
-                printf("Digite um valor válido!\n");            
+                printf(RED"Digite um valor válido!\n"RESET);            
             } 
             int length= strlen(ptr_att->nome);
             if(ptr_att->tipo == "string"){
@@ -95,7 +103,7 @@
             }            
             coluna_counter++;
           }else{
-            printf("Já existe uma coluna com esse nome!\n");
+            printf(RED"Já existe uma coluna com esse nome!\n"RESET);
           }      
         }
       }while(option != 0);       
@@ -150,3 +158,4 @@ int contarSeparador(FILE* tabela, char separador){
       }
       return colunas;
 }
+
