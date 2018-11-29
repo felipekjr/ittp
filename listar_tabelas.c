@@ -9,6 +9,7 @@ void listarTabelas(){
   DIR *p;
   struct dirent *pp;     
   p = opendir ("./");
+  int controle = 0;
   if (p != NULL)
   {
     while ((pp = readdir (p))!=NULL) {
@@ -18,8 +19,12 @@ void listarTabelas(){
           }
           else{
           printf("%.*s\n",length - 4, pp->d_name);
+          controle = 1;
           }
       }
+    }
+    if(controle != 1){
+      printf(RED"Nenhuma tabela foi encontrada\n"RESET);
     }
     (void) closedir (p);
   }
