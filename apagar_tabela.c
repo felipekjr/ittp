@@ -13,19 +13,20 @@ void apagarTabela(){
       tabela = fopen(strcat(nome_tabela, ".txt"), "r+");     
       if (tabela==NULL)
       {
-        printf("Essa tabela não existe!.\n");        
+        printf(RED"Erro! Essa tabela não existe!\n"RESET);         
       }
     }while(tabela == NULL);
+    printf(GREEN"Tabela escolhida com sucesso!\n"RESET); 
     for(int i = 0 ; i<30; i++){
       printf("=");
     }
     printf("\n");
     op=remove(nome_tabela);
     if(op==0){
-      printf("Tabela %s removida com sucesso\n",nome_tabela);
+      printf(GREEN"Tabela %s removida com sucesso\n"RESET,nome_tabela);
     }
     else{
-      printf("Erro :( \n");
+      printf(RED"Erro :( \n"RESET);
     }
     fclose(tabela);
     free(nome_tabela);
