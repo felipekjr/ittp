@@ -8,6 +8,12 @@ Sistema de Gerenciamento de Banco de Dados simples utilizando a linguagem C.
     * Apagar Registro em uma tabela;
     * Pesquisar valor em uma tabela;
     * Apagar uma tabela.
+    
+* **O que faríamos diferente:**
+   * Melhor exibição dos dados no terminal, gostaríamos de ter exibido os dados em forma de tabela.
+   * Fazer uma pasta apenas para as tabelas.
+   * Procurar soluções melhores que não usassem arquivos auxiliares em determinadas funções.
+   
 * **Como compilar:**
    * Para compilar o projeto, basta executar o comando > gcc *.c -o main
 
