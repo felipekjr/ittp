@@ -70,6 +70,7 @@ void inserirRegistros(){
       }
     }
     printf(GREEN"Valores inseridos.\n"RESET);
+    getchar();
     fclose(pk);
     fclose(respostas);
     fclose(tabela);

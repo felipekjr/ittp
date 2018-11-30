@@ -54,7 +54,7 @@
       //CHAVE PRIMARIA
             printf("(%d) Digite o nome da chave primária: ", coluna_counter);
             fscanf(stdin, "%s", nome);            
-            fprintf(tabela, "[%s (%s)]\n", nome, "int");
+            fprintf(tabela, "[*%s (%s)]\n", nome, "int");
             coluna_counter++;
             //FIM DO PROCESSO DA CHAVE PRIMARIA            
             //Lembrete, sempre a chave primária será a primeira coluna, por definição nossa

@@ -1,0 +1,4 @@
+[*id (int)]
+[idade (int)]
+[nome (string|20|)]
+[nome (string|20|)]
