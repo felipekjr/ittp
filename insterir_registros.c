@@ -32,8 +32,7 @@ void inserirRegistros(){
     colunas = contarSeparador(tabela, '[');
     //colocando para ler no inicio do documento
     tabela = fopen (nome_tabela, "a+");
-    jogarPkArquivo(tabela, valor,pk);
-    printf(GREEN"Processo pk concluido com sucesso!\n"RESET);
+    jogarPkArquivo(tabela, valor,pk);    
     printf("=Digite os valores da tabela %s=\n", nome_tabela);
     fseek(tabela,0,SEEK_SET);
     while (EOF != fscanf(tabela, "%[^\n]\n", buffer))
