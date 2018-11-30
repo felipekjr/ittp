@@ -36,11 +36,12 @@ void apagarRegistro(){
           fseek(tabela ,0, SEEK_SET);
           fseek(pk ,0, SEEK_SET);
           while(!feof(tabela)){
-            fgets(buffer, 1001, tabela);
+            if(fgets(buffer, 1001, tabela) != NULL){
             fgets(linha1, 1001, pk);
             linha = strtok(strtok(buffer,"{"),",");
             if(strcmp(p_key,linha)!=0){                
               fprintf(output,"%s",linha1);
+            }
             }
             if(strcmp(p_key,linha)==0){
                 controle = 1;    
