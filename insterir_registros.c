@@ -129,6 +129,6 @@ int verificarPk(FILE *pk, char *nome)
     }
   }
   free(aux);
-  fre(pEnd);
+  free(pEnd);
   return 0;
 }
