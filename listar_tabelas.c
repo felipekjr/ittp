@@ -18,7 +18,7 @@ void listarTabelas()
       int length = strlen(pp->d_name);
       if (strncmp(pp->d_name + length - 4, ".txt", 4) == 0)
       {
-        if (strcmp(pp->d_name, "respostas.txt") == 0 || strcmp(pp->d_name, "pk.txt") == 0)
+        if (strcmp(pp->d_name, "respostas.txt") == 0 || strcmp(pp->d_name, "pk.txt") == 0 ||strcmp(pp->d_name, "README.txt") == 0)
         {
           //Excluimos da exibição os arquivos auxiliares respostas e pk
         }
