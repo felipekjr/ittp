@@ -5,77 +5,63 @@
 //int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk);
 void apagarRegistro()
 {
-  char *nome_tabela = (char *)malloc(20 * sizeof(char));
-  FILE *tabela;
-  FILE *pk = fopen("pk.txt", "w+");
-  FILE *output = fopen("respostas.txt", "w");
-  char *p_key = (char *)calloc(20, sizeof(char));
-  char *linha = (char *)calloc(1001, sizeof(char));
-  char *linha1 = (char *)calloc(1001, sizeof(char));
-  char aux[20];
-  char *buffer = (char *)calloc(1001, sizeof(char));
-  int crtl = 0;
-  if (output == NULL || pk == NULL)
-  {
-    printf(RED "ERRO\n" RESET);
-  }
-  else
-  {
+    char *nome_tabela = (char *) malloc (20*sizeof(char));
+    FILE *tabela;
+    FILE *pk= fopen("pk.txt", "w+");
+    FILE *output = fopen ("respostas.txt","w");
+    char *p_key = (char*)calloc(20,sizeof(char));
+    char *linha = (char *) calloc (1001,sizeof(char));
+    char *linha1 = (char *) calloc (1001,sizeof(char));
+    char aux[20];
+    char *buffer = (char *) calloc (1001,sizeof(char));
+    int crtl=0;
     do
     {
-      printf("Digite o nome da sua tabela que deseja excluir o registro: \n");
-      fscanf(stdin, "%s", nome_tabela);
-      tabela = fopen(strcat(nome_tabela, ".txt"), "r+");
-      if (tabela == NULL)
-      {
-        printf(RED "Erro! Essa tabela não existe!\n" RESET);
-      }
-    } while (tabela == NULL); //Até o usuario digitar uma tabela existente
-    printf(GREEN "Tabela escolhida com sucesso!\n" RESET);
+        printf("Digite o nome da sua tabela que deseja excluir o registro: \n");
+        fscanf(stdin, "%s", nome_tabela);
+        tabela = fopen(strcat(nome_tabela, ".txt"), "r+");
+        if (tabela==NULL)
+        {
+            printf(RED"Erro! Essa tabela não existe!\n"RESET);
+        }
+    } while(tabela == NULL);
+    printf(GREEN"Tabela escolhida com sucesso!\n"RESET);
     printf("Digite a primary key (obs, se a PK nao existir, não vai apagar nenhuma linha):\n");
     scanf("%s", p_key);
-    fseek(tabela, 0, SEEK_SET);
+    fseek(tabela ,0, SEEK_SET);
     int controle = 0;
     int cont = 0;
     do
     {
-      fgets(buffer, 1001, tabela);
-      fprintf(pk, "%s", buffer);
-    } while (!feof(tabela));
-    fseek(tabela, 0, SEEK_SET);
-    fseek(pk, 0, SEEK_SET);
-    while (!feof(tabela))
+        fgets(buffer, 1001, tabela);
+        fprintf(pk,"%s",buffer);
+    } while(!feof(tabela));
+    fseek(tabela ,0, SEEK_SET);
+    fseek(pk ,0, SEEK_SET);
+    while(!feof(tabela))
     {
-      //Printa tudo em um arquivo auxiliar tal que a chave primaria seja diferente
-      if (fgets(buffer, 1001, tabela) != NULL)
-      {
-        fgets(linha1, 1001, pk);
-        //Pega a chave primaria
-        linha = strtok(strtok(buffer, "{"), ",");
-        if (strcmp(p_key, linha) != 0)
+        if(fgets(buffer, 1001, tabela) != NULL)
         {
-          fprintf(output, "%s", linha1); //Printa no arquivo auxiliar
+            fgets(linha1, 1001, pk);
+            linha = strtok(strtok(buffer,"{"),",");
+            if(strcmp(p_key,linha)!=0)
+            {
+                fprintf(output,"%s",linha1);
+            }
         }
-      }
-      if (strcmp(p_key, linha) == 0)
-      {
-        controle = 1;
-      }
+        if(strcmp(p_key,linha)==0)
+        {
+            controle = 1;
+        }
     }
-    if (controle == 0)
+    if(controle == 0)
     {
-      //Ou seja, a função não excluiu nenhuma tupla
-      printf(RED "Chave primária inexistente!\n" RESET);
+        printf(RED"Chave primária inexistente!\n"RESET);
     }
-  }
-  remove(nome_tabela);                  //Removendo o arquivo antigo
-  rename("respostas.txt", nome_tabela); // Muda o nome do arquivo que não tem a tupla desejada para o nome original da tabela
-  free(nome_tabela);
-  free(p_key);
-  free(linha);
-  free(linha1);
-  free(buffer);
-  fclose(tabela);
-  fclose(pk);
-  fclose(output);
+    remove(nome_tabela);
+    rename("respostas.txt",nome_tabela);
+    free(nome_tabela);
+    fclose(tabela);
+    fclose(pk);
+    fclose(output);
 }
