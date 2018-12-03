@@ -84,7 +84,6 @@ void pesquisarValor()
             printf("5 - Valores menores ou iguais que o valor informado\n");
             printf("6 - Valores próximos ao valor informado(se aplica apenas se a coluna for do tipo string)\n");
             scanf("%d", &option);
-
             switch (option)
             {
             case 1:
@@ -115,7 +114,7 @@ void pesquisarValor()
     free(nome_tabela);
     fclose(tabela);
 }
-
+//lista enumareadamente as colunas da tabela
 char **listarColunasOrdem(FILE *tabela)
 {
     char *coluna;
@@ -165,6 +164,7 @@ void pesquisarMaiores(FILE *tabela, char *valor, char *coluna)
                 continue;
             }
         }
+        // caso o valor da coluna seja uma string, tratamos como tal
         else if (strcmp(obj[i].coluna, valor) > 0)
         {
             printf(CYAN "%s\n" RESET, obj[i].linha);
@@ -196,6 +196,7 @@ void pesquisarMaioresIguais(FILE *tabela, char *valor, char *coluna)
                 continue;
             }
         }
+        // caso o valor da coluna seja uma string, tratamos como tal
         else if (strcmp(obj[i].coluna, valor) >= 0)
         {
             printf(CYAN "%s\n" RESET, obj[i].linha);
@@ -228,6 +229,7 @@ void pesquisarIguais(FILE *tabela, char *valor, char *coluna)
                 continue;
             }
         }
+        // caso o valor da coluna seja uma string, tratamos como tal
         else if (strcmp(obj[i].coluna, valor) == 0)
         {
             printf(CYAN "%s\n" RESET, obj[i].linha);
@@ -260,6 +262,7 @@ void pesquisarMenores(FILE *tabela, char *valor, char *coluna)
                 continue;
             }
         }
+        // caso o valor da coluna seja uma string, tratamos como tal
         else if (strcmp(obj[i].coluna, valor) < 0)
         {
             printf(CYAN "%s\n" RESET, obj[i].linha);
@@ -292,6 +295,7 @@ void pesquisarMenoresIguais(FILE *tabela, char *valor, char *coluna)
                 continue;
             }
         }
+        // caso o valor da coluna seja uma string, tratamos como tal
         else if (strcmp(obj[i].coluna, valor) <= 0)
         {
             printf(CYAN "%s\n" RESET, obj[i].linha);
@@ -322,7 +326,7 @@ void pesquisarProximos(FILE *tabela, char *valor, char *coluna)
         printf(YELLOW "Nenhum valor encontrado\n" RESET);
     }
 }
-
+// esta função retorna um array de objetos compostos pela coluna requisitada e cada linha
 ColunaLinha *listarValores(FILE *tabela, char *coluna)
 {
     int qnt_linhas = contarSeparador(tabela, '{');
@@ -339,9 +343,10 @@ ColunaLinha *listarValores(FILE *tabela, char *coluna)
         linhas_token[i] = strtok(linhas[i], ",");
         while (linhas_token[i] != NULL)
         {
-
+            
             if (j == atoi(coluna) - 1)
             {
+                //caso a coluna seja a requisitada, armazenamos o objeto no array
                 obj[i].coluna = linhas_token[i];
                 obj[i].linha = linhas_aux[i];
                 j++;
@@ -357,9 +362,10 @@ ColunaLinha *listarValores(FILE *tabela, char *coluna)
             linhas_token[i] = strtok(NULL, ",");
         }
     }
+    //retorna o array de structs ColunaLinha
     return obj;
 }
-
+// retorna um array de linhas da tabela sem as '{ }'
 char **listarLinhas(FILE *tabela)
 {
     int qnt_linhas = contarSeparador(tabela, '{');

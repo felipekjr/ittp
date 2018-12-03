@@ -1,4 +1,5 @@
 [*id (int)]
+[tam (char)]
 [idade (int)]
-[nome (string|20|)]
-[nome (string|20|)]
+{1,A,23}
+{1,A,23}
