@@ -108,7 +108,6 @@ int jogarPkArquivo(FILE *tabela, char *nome, FILE *pk)
       fprintf(pk, "%s\n", linha);
     }
   }
-  free(linha);
   return 0;
 }
 
@@ -129,6 +128,5 @@ int verificarPk(FILE *pk, char *nome)
     }
   }
   free(aux);
-  free(pEnd);
   return 0;
 }

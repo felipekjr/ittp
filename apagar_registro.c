@@ -24,7 +24,7 @@ void apagarRegistro()
         {
             printf(RED"Erro! Essa tabela não existe!\n"RESET);
         }
-    } while(tabela == NULL);
+    } while(tabela == NULL); //Até o usuario digitar uma tabela existente
     printf(GREEN"Tabela escolhida com sucesso!\n"RESET);
     printf("Digite a primary key (obs, se a PK nao existir, não vai apagar nenhuma linha):\n");
     scanf("%s", p_key);
@@ -43,9 +43,10 @@ void apagarRegistro()
         if(fgets(buffer, 1001, tabela) != NULL)
         {
             fgets(linha1, 1001, pk);
-            linha = strtok(strtok(buffer,"{"),",");
+            linha = strtok(strtok(buffer,"{"),","); //Pegando chave primaria
             if(strcmp(p_key,linha)!=0)
             {
+                //So printa o que a chave primaria for diferente
                 fprintf(output,"%s",linha1);
             }
         }
@@ -59,7 +60,7 @@ void apagarRegistro()
         printf(RED"Chave primária inexistente!\n"RESET);
     }
     remove(nome_tabela);
-    rename("respostas.txt",nome_tabela);
+    rename("respostas.txt",nome_tabela); //renomeia o arquivo auxiliar
     free(nome_tabela);
     fclose(tabela);
     fclose(pk);
